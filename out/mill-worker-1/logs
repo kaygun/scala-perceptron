@@ -1,0 +1,5 @@
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.protobuf.UnsafeUtil (file:/home/kaygun/.coursier/cache/v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.3.1/protobuf-java-3.3.1.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of com.google.protobuf.UnsafeUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
