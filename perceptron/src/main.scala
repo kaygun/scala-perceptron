@@ -17,7 +17,7 @@ object Main {
        val j = math.abs(nextInt)%size
        val x = xs(j)
        val y = ys(j)
-       val d = net.forward(x)(0)-y
+       val d = net.forward(x)(0) - y
        net.backprop(Array(d))
        if(i % batchSize == 0)
          err = Array(0.0) ++ err
@@ -38,7 +38,7 @@ object Main {
       val ys = data.map(_.head)
       val xs = data.map(_.tail)
 
-      val net = network(Array((size,10,sigmoid,eta),(10,3,relu,eta),(3,1,sigmoid,eta)))
+      val net = network(Array((size,10,sigmoid,eta),(10,3,sigmoid,eta),(3,1,sigmoid,eta)))
       val err = train(net, xs, ys, epochs, batchSize, tol)
       err.foreach(x=>println("%4.3f".format(x)))
   }
