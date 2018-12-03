@@ -24,23 +24,23 @@ object neural {
   }
   
   case class layer(size: Int, num: Int, fn: Double=>Double, eta: Double) {
-    val nodes = Range(0,num).map(i=>node(size,fn,eta)).toArray
+    val nodes = (1 to num).map(i=>node(size,fn,eta)).toArray
 
-    def forward(xs: Array[Double]) = 
-      nodes.map(_.forward(xs)).toArray
+    def forward(xs: Array[Double]) = nodes.map(_.forward(xs))
     
-    def backprop(ds: Array[Double]) =
+    def backprop(ds: Array[Double]) = {
+      val zero = DenseVector.zeros[Double](nodes(0).size+1)
       (nodes,ds).zipped
-                .map({case (n,d)=> n.backprop(d)})
-                .reduce(_+_)
+                .foldRight(zero)({ case((n,d),v) => v + n.backprop(d) })
                 .toArray
+    }
   }
 
   case class network(shape:Array[(Int, Int, Double=>Double, Double)]) {
     val layers = shape.map({case (n,m,fn,eta) => layer(n,m,fn,eta)})
 
-    def forward(xs:Array[Double]) = layers.foldLeft(xs)((ys,ns)=>ns.forward(ys))
-    def backprop(ds:Array[Double]) = layers.foldRight(ds)((ns,ys)=>ns.backprop(ys))
+    def forward(xs:Array[Double]) = layers.foldLeft(xs)((ys,ns) => ns.forward(ys))
+    def backprop(ds:Array[Double]) = layers.foldRight(ds)((ns,ys) => ns.backprop(ys))
   }
 
 }
