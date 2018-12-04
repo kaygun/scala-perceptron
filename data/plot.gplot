@@ -1,0 +1,4 @@
+set terminal jpeg size "1200,800" font "Arial,14" enhanced
+set key rmargin Left reverse width 0 spacing 0.8 samplen 1
+set boxwidth 0.75 absolute
+plot "plot.csv" with lines lc 2 lw 0.4
